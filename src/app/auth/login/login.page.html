@@ -1,0 +1,20 @@
+
+
+<ion-content>
+  <div class="img"><img src="../../../assets/icon/riñon.png" alt="Descripción de la imagen" /></div>
+
+    <ion-item class="list">
+      <ion-input label="Email" labelPlacement="floating" type="email" placeholder="email@domain.com" [(ngModel)]="credenciales.email"></ion-input>
+    </ion-item>
+
+    <ion-item class="list">
+      <ion-input label="Contraseña" type="password" labelPlacement="floating" [(ngModel)]="credenciales.password"></ion-input>
+    </ion-item>
+<div class="boton-container">
+    <ion-button class="boton" expand="block" >iniciar sesion</ion-button>
+ 
+  <ion-button expand="block" fill="clear" [routerLink]="['/register']">
+    ¿No tienes cuenta? Regístrate aquí
+  </ion-button>
+</div>
+</ion-content>

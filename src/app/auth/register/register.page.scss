@@ -1,0 +1,180 @@
+ion-content, swiper-container {
+  height: 100%;
+}
+
+swiper-slide {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+ion-button{
+  --background: transparent;
+  --box-shadow: none;
+}
+
+
+.slide-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  position: relative;
+}
+
+/* Contenedor de la regla */
+.ruler-container {
+  position: relative;
+  height: 400px; /* Ajusta según lo que quieras mostrar */
+  width: 200px;
+  overflow-y: scroll;
+  background: #ff9100;
+  border: 1px solid #ff9100;
+  margin-bottom: 0;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.ruler-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Línea central fija */
+.center-line {
+  position: absolute;
+  top: 50%;
+  width: 200px;
+  height: 3px;
+  background: red;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+/* Marcas */
+.ruler-ticks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cada marca */
+.tick {
+  height: 40px; /* Altura consistente para calcular */
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+
+/* Línea corta */
+.line {
+  width: 70px;
+  height: 2px;
+  background: #000;
+}
+
+/* Línea larga (cada 10) */
+.line.long {
+  width: 100px;
+  height: 3px;
+  background: #000;
+}
+
+/* Números */
+.label {
+  margin-left: 8px;
+  font-size: 16px;
+  color: #fff;
+  user-select: none;
+}
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 200px; /* ancho acorde a tu diseño */
+  bottom: 0;
+}
+
+/* Contenedor de regla horizontal */
+.ruler-container-horizontal {
+  position: relative;
+  width: 400px; /* ajusta a tu diseño */
+  height: 200px;
+  overflow-x: scroll;
+  background: #ff9100;
+  border: 1px solid #ff9100;
+  display: flex;
+  align-items: center;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ruler-container-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
+/* Línea central fija vertical */
+.center-line-horizontal {
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  width: 3px;
+  background: red;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.contenedor-peso {
+  position: relative; /* asegura contexto */
+  overflow: hidden;
+  width: 400px;
+  height: 200px;
+}
+
+/* Contenedor ticks */
+.ruler-ticks-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cada marca */
+.tick-horizontal {
+  width: 40px; /* igual que tickWidth en TS */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+
+/* Línea corta */
+.line-horizontal {
+  height: 30px;
+  width: 2px;
+  background: #000;
+}
+
+/* Línea larga */
+.line-horizontal.long {
+  height: 50px;
+  width: 3px;
+  background: #000;
+}
+
+/* Números */
+.label-horizontal {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #fff;
+  user-select: none;
+}
+ion-item{
+  width: 100%;
+}
