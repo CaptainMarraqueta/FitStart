@@ -12,20 +12,16 @@
         <h1>Datos Básicos</h1>
         
           <ion-item>
-            <ion-label position="floating">Nombre</ion-label>
-            <ion-input [(ngModel)]="usuario.nombre" required></ion-input>
+            <ion-input labelPlacement="floating" label="Nombre" [(ngModel)]="usuario.nombre" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" [(ngModel)]="usuario.email" required></ion-input>
+            <ion-input  label="Email" labelPlacement="floating" type="email" placeholder="email@domain.com"  [(ngModel)]="usuario.email" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
-            <ion-input type="password" [(ngModel)]="usuario.password" required></ion-input>
+            <ion-input labelPlacement="floating" label="Contraseña" type="password" [(ngModel)]="usuario.password" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Edad</ion-label>
-            <ion-input type="number" [(ngModel)]="usuario.edad" required></ion-input>
+            <ion-input labelPlacement="floating" label="Edad" type="number" [(ngModel)]="usuario.edad" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Género</ion-label>
