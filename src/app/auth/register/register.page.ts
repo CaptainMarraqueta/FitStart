@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { Usuario } from '../../models/usuario'; // <-- Importa la interfaz
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-register',
@@ -49,12 +50,13 @@ export class RegisterPage implements AfterViewInit {
     { label: 'Ninguna', value: 'Ninguna', selected: false },
   ];
 
-  constructor(
-    private router: Router,
+   constructor(private router: Router, private storage: Storage) {
+    this.initStorage();
+  }
 
-    private navCtrl: NavController,
-    private alertCtrl: AlertController
-  ) {}
+  async initStorage() {
+    await this.storage.create();
+  }
 
   ngAfterViewInit() {
     // Altura
@@ -170,7 +172,16 @@ onScrollPeso() {
     }
   }
 
-  
+    // ---- Registro final ----
+  async registrar() {
+    if (this.validateSlide(3)) {
+      // Guardar localmente
+      await this.storage.set('usuario', this.usuario);
+      alert('Registro exitoso');
+      this.router.navigate(['/home']);
+    } else {
+      alert('Completa todos los campos antes de registrarte');
+    }
 
-
+  }
 }

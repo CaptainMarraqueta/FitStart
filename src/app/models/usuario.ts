@@ -8,4 +8,5 @@ export interface Usuario {
   condicion: string[];
   altura: number;
   peso: number;
+
 }
