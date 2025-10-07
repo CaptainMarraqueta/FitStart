@@ -1,0 +1,151 @@
+<ion-content class="ion-padding">
+  <swiper-container
+    #swiperEl
+    navigation="false"
+    pagination
+    loop="false"
+    allow-touch-move="false"
+  >
+    <!-- Slide 1 -->
+    <swiper-slide>
+      <div class="slide-container">
+        <h1>Datos Básicos</h1>
+        
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input [(ngModel)]="usuario.nombre" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="usuario.email" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" [(ngModel)]="usuario.password" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Edad</ion-label>
+            <ion-input type="number" [(ngModel)]="usuario.edad" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Género</ion-label>
+            <ion-select [(ngModel)]="usuario.genero" placeholder="Selecciona" required>
+              <ion-select-option value="masculino">Masculino</ion-select-option>
+              <ion-select-option value="femenino">Femenino</ion-select-option>
+              <ion-select-option value="otro">Otro</ion-select-option>
+            </ion-select>
+          </ion-item>
+        
+        <div class="nav-buttons">
+      <ion-button class="boton-slide" fill="clear" (click)="prevSlide()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button class="boton-slide" fill="clear" (click)="nextSlide()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+      </div>
+    </swiper-slide>
+
+    <!-- Slide 2: opciones siempre visibles con checkboxes -->
+    <swiper-slide>
+      <div class="slide-container">
+        <h1>Objetivos</h1>
+        
+          <ion-item *ngFor="let obj of objetivosList">
+            <ion-label>{{ obj.label }}</ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="obj.selected" (ionChange)="onObjetivosChange()"></ion-checkbox>
+          </ion-item>
+        
+
+        <h1>Condiciones</h1>
+        
+          <ion-item *ngFor="let cond of condicionesList">
+            <ion-label>{{ cond.label }}</ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="cond.selected" (ionChange)="onCondicionesChange()"></ion-checkbox>
+          </ion-item>
+        
+
+        <div class="nav-buttons">
+          <ion-button class="boton-slide" fill="clear" (click)="prevSlide()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+          <ion-button class="boton-slide" fill="clear" (click)="nextSlide()">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </swiper-slide>
+
+    <!-- Slide 3: Altura con regla -->
+<swiper-slide>
+  <h1>Altura: {{ alturaActual }} cm</h1>
+  <div class="slide-container">
+    <div class="center-line"></div>
+    <div
+      class="ruler-container"
+      #reglaContainer
+      (scroll)="onScroll()"
+    >
+      <div class="ruler-ticks">
+        <div *ngFor="let tick of ticks" class="tick">
+          <div
+            class="line"
+            [ngClass]="{ long: tick % 10 === 0 }"
+          ></div>
+          <div class="label" *ngIf="tick % 10 === 0">
+            {{ tick }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <ion-button class="boton-slide" fill="clear" (click)="prevSlide()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button class="boton-slide" fill="clear" (click)="nextSlide()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</swiper-slide>
+
+
+
+    <!-- Slide 4: Peso con regla horizontal -->
+    <swiper-slide>
+      <h1>Peso: {{ usuario.peso }} kg</h1>
+      <div class="slide-container">
+        <div class="contenedor-peso">
+        <!-- Línea central fija -->
+        <div class="center-line-horizontal"></div>
+
+        <!-- Contenedor de la regla -->
+        <div
+          class="ruler-container-horizontal"
+          #reglaPesoContainer
+          (scroll)="onScrollPeso()"
+        >
+          <div class="ruler-ticks-horizontal">
+            <div *ngFor="let tick of ticksPeso" class="tick-horizontal">
+              <div
+                class="line-horizontal"
+                [ngClass]="{ long: tick % 10 === 0 }"
+              ></div>
+              <div class="label-horizontal" *ngIf="tick % 10 === 0">
+                {{ tick }}
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div>
+          <ion-button class="boton-slide" fill="clear" (click)="prevSlide()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+        </div>
+        <ion-button class="boton" (click)="registrarUsuario()">Registrarse</ion-button>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

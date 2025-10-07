@@ -1,0 +1,100 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+@import '../src/assets/css/swiper-bundle.css';
+
+ion-content {
+  --background: linear-gradient(
+    30deg,  /* menos inclinado que 45deg */
+    #151616 0%,      /* esquina inferior izquierda */
+    #1e1f1e 10%,
+    #262725 25%,
+    #343531 40%,
+    #444643 55%,
+    #494948 70%,
+    #575755 85%,
+    #707070 100%     /* esquina superior derecha */
+  );
+}
+
+ion-tab-bar {
+  background: #494948;
+  width: 100%;
+  margin: 0;
+}
+ion-tab-button{
+  width: 100%;
+}
+
+.boton-slide{
+  position: relative;
+  --z-index: 10;
+  z-index: 10;
+}
+
+ion-list, ion-item, ion-button{
+  --background: transparent;
+  --box-shadow: none;
+  --border-color: transparent;
+}
+ion-item, .boton{
+    background: #c0c7ce;
+    width: auto;
+    color: #000000;
+    border: 2px solid #00eeff;
+    border-radius: 60px;
+    margin: 8px;
+    padding: 10px;
+}
+
+ion-item{
+  box-shadow: 0 1px 8px 4px rgba(0, 0, 0, 0.911);
+}
+
+.pagination{
+  --display: none;
+}
+
+.boton{
+    background: #20f0ff;
+    width: auto;
+    color: #000000;
+    border: 2px solid #000000;
+    font-size: 1em;
+    font-weight: 1000;
+    -webkit-text-stroke: 0.5px rgb(54, 54, 54);
+}
