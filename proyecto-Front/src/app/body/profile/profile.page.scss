@@ -1,0 +1,42 @@
+.header-title {
+  display: inline-flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 8px; /* espacio entre el botón y el texto */
+  height: 44px; /* para que quede alineado con toolbar */
+}
+
+ion-icon{
+    --border-radius: 70%;
+}
+
+// Ejemplo para un ion-button en el archivo 'home.page.scss'
+
+.button-page {
+  // Color de fondo del botón (relleno)
+  width: 100%;
+  --background: #707070;
+
+  // Color de fondo del botón cuando se presiona (efecto)
+  --background-hover: #e0e0e0;
+  --background-activated: #d0d0d0;
+
+  // Color del borde
+  --border-color: #5de5ec;
+  --border-style: solid;
+  --border-width: 2px;
+  --border-radius: 5px;
+
+  // Color del texto y la sombra
+  --color: #ffffff;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.circulo {
+  margin: auto;
+  margin-bottom: 20px;
+  width: 200px;
+  height: 200px;
+  background-color: #3498db; /* Un color de fondo para que sea visible */
+  border-radius: 50%;
+}
