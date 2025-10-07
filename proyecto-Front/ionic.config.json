@@ -1,7 +1,0 @@
-{
-  "name": "fitfocus",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
