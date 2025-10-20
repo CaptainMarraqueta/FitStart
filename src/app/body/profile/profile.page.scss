@@ -1,42 +1,107 @@
-.header-title {
-  display: inline-flex;
+/* Estilos específicos para la página de perfil */
+.profile-page {
+  --ion-background-color: #1c1c1e;
+  --ion-text-color: #ffffff;
+}
+
+/* Cabecera de perfil con fondo púrpura */
+.profile-header {
+  background-color: #d1c4e9;
+  color: #333;
+  padding: 24px 16px;
+  display: flex;
   align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  margin-left: 8px; /* espacio entre el botón y el texto */
-  height: 44px; /* para que quede alineado con toolbar */
+  justify-content: space-between;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  .profile-info {
+    h2 {
+      margin: 0 0 4px 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #4b2c82;
+    }
+  }
+
+  .profile-picture img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+  }
 }
 
-ion-icon{
-    --border-radius: 70%;
+/* Lista de opciones del perfil */
+.profile-options {
+  --ion-background-color: transparent;
+  background: transparent;
+  padding-top: 16px;
+
+  ion-item {
+    --ion-background-color: transparent;
+    --border-color: rgba(255, 255, 255, 0.15); /* Línea separadora sutil */
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    border-bottom: 1px solid var(--border-color);
+    
+    ion-icon {
+      color: #a7a7a7;
+      margin-right: 16px;
+    }
+
+    ion-label {
+      font-weight: 500;
+    }
+
+    .profile-input {
+      --color: #ffffff;
+      --placeholder-color: #777;
+      text-align: right;
+    }
+
+    ion-note {
+      color: #a7a7a7;
+    }
+  }
 }
 
-// Ejemplo para un ion-button en el archivo 'home.page.scss'
+/* Contenedor para los botones de acción */
+.action-buttons {
+  margin-top: 24px;
 
-.button-page {
-  // Color de fondo del botón (relleno)
-  width: 100%;
-  --background: #707070;
+  ion-button {
+    margin-bottom: 12px;
+    --border-radius: 12px;
+    height: 48px;
+    font-weight: bold;
+  }
 
-  // Color de fondo del botón cuando se presiona (efecto)
-  --background-hover: #e0e0e0;
-  --background-activated: #d0d0d0;
-
-  // Color del borde
-  --border-color: #5de5ec;
-  --border-style: solid;
-  --border-width: 2px;
-  --border-radius: 5px;
-
-  // Color del texto y la sombra
-  --color: #ffffff;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .edit-button, .save-button {
+    --background: #d1c4e9;
+    --background-activated: #bca8d3;
+    --color: #333;
+  }
 }
-.circulo {
-  margin: auto;
-  margin-bottom: 20px;
-  width: 200px;
-  height: 200px;
-  background-color: #3498db; /* Un color de fondo para que sea visible */
-  border-radius: 50%;
+
+/* Estilos para la barra de navegación inferior (para consistencia) */
+.custom-tab-bar {
+  --background: #d1c4e9;
+  --color-selected: #333;
+  --color: #555;
+  border-top: none;
+  
+  ion-label {
+    font-weight: bold;
+  }
+
+  ion-tab-button[aria-selected="true"] ion-icon,
+  ion-tab-button[tab="perfil"] ion-icon { /* Resalta el ícono de perfil */
+    color: var(--color-selected);
+  }
 }

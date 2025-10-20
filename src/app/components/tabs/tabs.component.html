@@ -1,0 +1,32 @@
+<ion-tab-bar slot="bottom" class="custom-tab-bar">
+  <!-- Botón Progreso -->
+  <ion-tab-button (click)="goTo('home')" [class.active-tab]="activeTab === 'progreso'">
+    <ion-icon name="trending-up-outline"></ion-icon>
+    <ion-label>Progreso</ion-label>
+  </ion-tab-button>
+
+  <!-- Botón Planificación -->
+  <ion-tab-button (click)="goTo('planificacion')" [class.active-tab]="activeTab === 'planificacion'">
+    <ion-icon name="calendar-outline"></ion-icon>
+    <ion-label>Planificación</ion-label>
+  </ion-tab-button>
+
+  <!-- Contenedor del Botón Central -->
+  <div class="home-button-container">
+    <ion-button class="home-button" (click)="goTo('home')">
+      <ion-icon name="home"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Botón Favoritos -->
+  <ion-tab-button (click)="goTo('favoritos')" [class.active-tab]="activeTab === 'favoritos'">
+    <ion-icon name="heart-outline"></ion-icon>
+    <ion-label>Favoritos</ion-label>
+  </ion-tab-button>
+
+  <!-- Botón Perfil -->
+  <ion-tab-button (click)="goTo('profile')" [class.active-tab]="activeTab === 'perfil'">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-label>Perfil</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
