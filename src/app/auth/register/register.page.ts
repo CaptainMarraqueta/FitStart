@@ -10,6 +10,7 @@ import { Usuario } from '../../models/usuario'; // <-- Importa la interfaz
   styleUrls: ['./register.page.scss'],
   standalone: false,
 })
+
 export class RegisterPage implements AfterViewInit {
   @ViewChild('swiperEl', { static: false }) swiperEl!: ElementRef;
   @ViewChild('reglaContainer', { static: false }) reglaContainer!: ElementRef;
@@ -198,14 +199,22 @@ onScrollPeso() {
         await alert.present();
         this.navCtrl.navigateRoot('/login');
       },
-      error: async (err) => {
-        const alert = await this.alertCtrl.create({
-          header: 'Error',
-          message: err.error?.error || 'No se pudo registrar el usuario',
-          buttons: ['OK'],
-        });
-        await alert.present();
-      },
+error: async (err) => {
+  console.error("❌ ERROR REAL:", err);
+
+  const mensaje =
+    err?.message ||
+    err?.code ||
+    'No se pudo registrar el usuario';
+
+  const alert = await this.alertCtrl.create({
+    header: 'Error',
+    message: mensaje,
+    buttons: ['OK'],
+  });
+
+  await alert.present();
+},
     });
   }
 
