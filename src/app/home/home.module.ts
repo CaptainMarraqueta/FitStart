@@ -14,7 +14,8 @@ import {TabsComponent} from '../components/tabs/tabs.component'
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    TabsComponent
   ],
-  declarations: [HomePage,TabsComponent]
+  declarations: [HomePage,]
 })
 export class HomePageModule {}

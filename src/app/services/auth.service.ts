@@ -56,23 +56,30 @@ registrar(usuario: Usuario): Observable<any> {
 
 
 login(email: string, password: string): Observable<any> {
-    return from(this.afAuth.signInWithEmailAndPassword(email, password))
-      .pipe(
-        switchMap(async cred => {
-          if (!cred.user) throw new Error('Usuario no encontrado');
+  return from(this.afAuth.signInWithEmailAndPassword(email, password))
+    .pipe(
+      switchMap(cred => {
+        if (!cred.user) throw new Error('Usuario no encontrado');
 
-          // Guardar mínimo info localmente usando Partial<Usuario>
-          const usuario: Partial<Usuario> = { uid: cred.user.uid, email: cred.user.email || '' };
-          this.guardarUsuario(usuario);
+        const uid = cred.user.uid;
 
-          // Guardar token Firebase
-          const token = await cred.user.getIdToken();
-          this.guardarToken(token);
+        // Traer datos completos del usuario desde Firestore
+        return this.afs.collection('usuarios').doc(uid).valueChanges().pipe(
+          map((usuario: any) => {
+            if (!usuario) throw new Error('Datos de usuario no encontrados');
 
-          return { ok: true, usuario };
-        })
-      );
-  }
+            // Guardar usuario completo en LocalStorage
+            this.guardarUsuario(usuario);
+
+            // Guardar token de Firebase
+            cred.user!.getIdToken().then(token => this.guardarToken(token));
+
+            return { ok: true, usuario };
+          })
+        );
+      })
+    );
+}
 
 
   async getUid(): Promise<string | null> {

@@ -1,21 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular'; // <- importar Ionic
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-custom-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
-  standalone:false,
+  standalone: true,  // ✅ ya es standalone
+  imports: [IonicModule, CommonModule] // ✅ import necesario
 })
 export class TabsComponent {
-  // Esta variable recibirá el nombre de la pestaña activa desde la página padre
   @Input() activeTab: string = 'inicio';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  // Función para navegar a la página que se le indique
   goTo(path: string) {
     this.router.navigate([`/${path}`]);
   }
-
 }

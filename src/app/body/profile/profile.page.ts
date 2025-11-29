@@ -70,9 +70,24 @@ export class ProfilePage {
   }
 
   async cerrarSesion() {
-    await this.authService.logout();
-    this.navCtrl.navigateRoot('/login');
-  }
+  const alert = await this.alertCtrl.create({
+    header: 'Cerrar sesión',
+    message: '¿Estás seguro de que deseas cerrar sesión?',
+    buttons: [
+      { text: 'Cancelar', role: 'cancel' },
+      {
+        text: 'Sí',
+        handler: async () => {
+          await this.authService.logout();
+          this.navCtrl.navigateRoot('/login');
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
 
   toggleObjetivo(value: string) {
     if (!this.usuario.objetivo) this.usuario.objetivo = [];
@@ -83,11 +98,5 @@ export class ProfilePage {
       this.usuario.objetivo.push(value);
     }
   }
-
-  goToHome() { this.navCtrl.navigateForward('/home'); }
-  goToGame() { this.navCtrl.navigateForward('/game'); }
-  goToRecipes() { this.navCtrl.navigateForward('/recipes'); }
-  goToGym() { this.navCtrl.navigateForward('/gym'); }
-  goToProfile() { this.navCtrl.navigateForward('/profile'); }
 
 }

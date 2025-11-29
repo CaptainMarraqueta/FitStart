@@ -1,24 +1,18 @@
-<!-- 
-  Este es el contenido principal de la página de perfil.
-  La clase "profile-page" aplica el tema oscuro.
--->
 <ion-content [fullscreen]="true" class="profile-page">
 
-  <!-- Cabecera de perfil con fondo púrpura -->
+  <!-- Cabecera de perfil -->
   <div class="profile-header">
     <div class="profile-info">
-      <!-- Usamos tus variables. Si no existen, muestra datos de ejemplo -->
       <h2>{{ usuario.nombre || 'Juan Carlos' }}</h2>
       <p>{{ (usuario.objetivo && usuario.objetivo.length > 0 ? usuario.objetivo[0] : 'Mantener peso') }}</p>
-      <p>Cumpleaños: 27 Diciembre</p> <!-- Puedes hacer este campo dinámico -->
+      <p>Cumpleaños: 27 Diciembre</p>
     </div>
     <div class="profile-picture">
-      <!-- Usamos un placeholder para la imagen de perfil -->
       <img src="https://placehold.co/100x100/FFFFFF/333?text=JC" alt="Foto de perfil" />
     </div>
   </div>
 
-  <!-- Lista de opciones del perfil -->
+  <!-- Formulario editable -->
   <ion-list class="profile-options" lines="none">
     <ion-item>
       <ion-icon name="person-outline" slot="start"></ion-icon>
@@ -35,25 +29,24 @@
     <ion-item>
       <ion-icon name="body-outline" slot="start"></ion-icon>
       <ion-label>Altura (cm)</ion-label>
-      <ion-input slot="end" class="profile-input" type="number" [readonly]="!editando" placeholder="Tu altura"></ion-input>
+      <ion-input slot="end" class="profile-input" type="number" [(ngModel)]="usuario.altura" [readonly]="!editando" placeholder="Tu altura"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="calendar-outline" slot="start"></ion-icon>
       <ion-label>Edad</ion-label>
-      <ion-input slot="end" class="profile-input" type="number" [readonly]="!editando" placeholder="Tu edad"></ion-input>
+      <ion-input slot="end" class="profile-input" type="number" [(ngModel)]="usuario.edad" [readonly]="!editando" placeholder="Tu edad"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="transgender-outline" slot="start"></ion-icon>
       <ion-label>Género</ion-label>
-      <ion-input slot="end" class="profile-input" [readonly]="!editando" placeholder="Tu género"></ion-input>
+      <ion-input slot="end" class="profile-input" [(ngModel)]="usuario.genero" [readonly]="!editando" placeholder="Tu género"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-icon name="analytics-outline" slot="start"></ion-icon>
       <ion-label>Objetivo</ion-label>
-      <!-- Mostramos el objetivo en modo de solo lectura -->
       <ion-note slot="end">{{ (usuario.objetivo && usuario.objetivo.length > 0 ? usuario.objetivo.join(', ') : 'No definido') }}</ion-note>
     </ion-item>
   </ion-list>
@@ -73,28 +66,5 @@
 
 </ion-content>
 
-<!-- 
-  Barra de navegación inferior consistente con el diseño de la página de inicio.
-  Asegúrate de que el ícono de "Perfil" esté resaltado en esta página.
--->
-<ion-tab-bar slot="bottom" class="custom-tab-bar">
-  <ion-tab-button tab="progreso">
-    <ion-icon name="trending-up-outline"></ion-icon>
-    <ion-label>Progreso</ion-label>
-  </ion-tab-button>
-  
-  <ion-tab-button tab="favoritos">
-    <ion-icon name="star-outline"></ion-icon>
-    <ion-label>Favoritos</ion-label>
-  </ion-tab-button>
-  
-  <ion-tab-button tab="inicio" (click)="goToHome()">
-    <ion-icon name="home-outline"></ion-icon>
-    <ion-label>Inicio</ion-label>
-  </ion-tab-button>
-  
-  <ion-tab-button tab="perfil">
-    <ion-icon name="person-circle"></ion-icon>
-    <ion-label>Perfil</ion-label>
-  </ion-tab-button>
-</ion-tab-bar>
+<!-- Barra de tabs usando el componente reutilizable -->
+<app-custom-tabs [activeTab]="'profile'"></app-custom-tabs>
