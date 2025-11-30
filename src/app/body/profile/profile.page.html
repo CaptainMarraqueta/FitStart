@@ -14,42 +14,82 @@
 
   <!-- Formulario editable -->
   <ion-list class="profile-options" lines="none">
-    <ion-item>
-      <ion-icon name="person-outline" slot="start"></ion-icon>
-      <ion-label>Nombre completo</ion-label>
-      <ion-input slot="end" class="profile-input" [(ngModel)]="usuario.nombre" [readonly]="!editando" placeholder="Tu nombre"></ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-icon name="barbell-outline" slot="start"></ion-icon>
-      <ion-label>Peso (kg)</ion-label>
-      <ion-input slot="end" class="profile-input" type="number" [(ngModel)]="usuario.peso" [readonly]="!editando" placeholder="Tu peso"></ion-input>
-    </ion-item>
+  <!-- Nombre completo -->
+  <ion-item>
+    <ion-icon name="person-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Nombre completo"
+      class="profile-input"
+      [(ngModel)]="usuario.nombre"
+      [readonly]="!editando"
+      placeholder="Tu nombre">
+    </ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-icon name="body-outline" slot="start"></ion-icon>
-      <ion-label>Altura (cm)</ion-label>
-      <ion-input slot="end" class="profile-input" type="number" [(ngModel)]="usuario.altura" [readonly]="!editando" placeholder="Tu altura"></ion-input>
-    </ion-item>
+  <!-- Peso -->
+  <ion-item>
+    <ion-icon name="barbell-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Peso (kg)"
+      class="profile-input"
+      type="number"
+      [(ngModel)]="usuario.peso"
+      [readonly]="!editando"
+      placeholder="Tu peso">
+    </ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-icon name="calendar-outline" slot="start"></ion-icon>
-      <ion-label>Edad</ion-label>
-      <ion-input slot="end" class="profile-input" type="number" [(ngModel)]="usuario.edad" [readonly]="!editando" placeholder="Tu edad"></ion-input>
-    </ion-item>
+  <!-- Altura -->
+  <ion-item>
+    <ion-icon name="body-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Altura (cm)"
+      class="profile-input"
+      type="number"
+      [(ngModel)]="usuario.altura"
+      [readonly]="!editando"
+      placeholder="Tu altura">
+    </ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-icon name="transgender-outline" slot="start"></ion-icon>
-      <ion-label>Género</ion-label>
-      <ion-input slot="end" class="profile-input" [(ngModel)]="usuario.genero" [readonly]="!editando" placeholder="Tu género"></ion-input>
-    </ion-item>
+  <!-- Edad -->
+  <ion-item>
+    <ion-icon name="calendar-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Edad"
+      class="profile-input"
+      type="number"
+      [(ngModel)]="usuario.edad"
+      [readonly]="!editando"
+      placeholder="Tu edad">
+    </ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-icon name="analytics-outline" slot="start"></ion-icon>
-      <ion-label>Objetivo</ion-label>
-      <ion-note slot="end">{{ (usuario.objetivo && usuario.objetivo.length > 0 ? usuario.objetivo.join(', ') : 'No definido') }}</ion-note>
-    </ion-item>
-  </ion-list>
+  <!-- Género -->
+  <ion-item>
+    <ion-icon name="transgender-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Género"
+      class="profile-input"
+      [(ngModel)]="usuario.genero"
+      [readonly]="!editando"
+      placeholder="Tu género">
+    </ion-input>
+  </ion-item>
+
+  <!-- Objetivo -->
+  <ion-item>
+    <ion-icon name="analytics-outline" slot="start"></ion-icon>
+    <ion-input
+      label="Objetivo"
+      class="profile-input"
+      [readonly]="true"
+      [value]="usuario.objetivo && usuario.objetivo.length > 0 ? usuario.objetivo.join(', ') : 'No definido'">
+    </ion-input>
+  </ion-item>
+
+</ion-list>
 
   <!-- Botones de acción -->
   <div class="action-buttons ion-padding">

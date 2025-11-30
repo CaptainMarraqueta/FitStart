@@ -1,0 +1,49 @@
+.profile-list {
+  padding: 16px;
+
+  ion-item {
+    --background: #1a1a1f;  /* Fondo oscuro de cada input */
+    --border-radius: 16px;   /* Bordes redondeados */
+    margin-bottom: 14px;     /* Espacio entre items */
+    padding: 12px 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra suave */
+    align-items: center;
+
+    ion-icon {
+      color: #7a50ff;       /* Color violeta similar a tu tab-bar */
+      font-size: 1.4rem;
+    }
+
+    ion-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #fff;
+      .profile-note {
+        font-size: 0.75rem;
+        color: #aaa;
+      }
+    }
+
+    ion-input.profile-input {
+      text-align: right;
+      color: #fff;
+      --padding-start: 8px;
+      --padding-end: 8px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Ajuste para mobile, que los inputs no se vean pegados al borde */
+@media (max-width: 480px) {
+  .profile-list {
+    padding: 12px;
+
+    ion-item {
+      padding: 10px 12px;
+    }
+  }
+}

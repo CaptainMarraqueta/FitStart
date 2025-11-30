@@ -1,0 +1,53 @@
+<ion-header class="header">
+  <ion-toolbar color="dark">
+    <div class="header-content">
+      <div>
+        <h1>RESUMEN</h1>
+        <p>{{ fechaHoy }}</p>
+      </div>
+      <ion-icon name="person-circle-outline" class="user-icon" (click)="goTo('profile')" ></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-bg">
+
+  <!-- PROGRESS CIRCLE REAL -->
+  <div class="progress-container">
+    <circle-progress
+      [percent]="metaProgreso * 100"
+      [radius]="70"
+      [outerStrokeWidth]="10"
+      [innerStrokeWidth]="3"
+      [outerStrokeColor]="'#9b4dff'"
+      [innerStrokeColor]="'#3e2a58'"
+      [animation]="true"
+      [animationDuration]="800"
+      [title]="(metaProgreso * 100 | number:'1.0-0') + '%'"
+      [unitsFontSize]="'0'"
+      [titleFontSize]="'28'"
+    ></circle-progress>
+  </div>
+
+  <!-- CALORÍAS -->
+  <div class="card">
+    <div class="icon fire"></div>
+    <div class="text">
+      <h4>CALORÍAS</h4>
+      <h2>{{ calorias }} <span>/ {{ caloriasMeta }}</span></h2>
+    </div>
+  </div>
+
+  <!-- PASOS -->
+  <app-podometer></app-podometer>
+
+  <!-- SLIDER -->
+  <div class="bottom-slider">
+    <div class="slider-item active"></div>
+    <div class="slider-item"></div>
+    <div class="slider-item"></div>
+  </div>
+
+</ion-content>
+
+<app-custom-tabs [activeTab]="'home'"></app-custom-tabs>

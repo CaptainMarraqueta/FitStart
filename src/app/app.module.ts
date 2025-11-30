@@ -13,6 +13,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -28,6 +30,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    NgCircleProgressModule.forRoot({}),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

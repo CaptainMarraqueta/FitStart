@@ -1,0 +1,122 @@
+
+.home-bg {
+  --background: #0d0a1a;
+  padding: 16px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ==== HEADER ==== */
+
+.header {
+  --background: #0d0a1a;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.header-content p {
+  margin: 0;
+  margin-top: 2px;
+  color: #b4b4b4;
+  font-size: 14px;
+}
+
+.user-icon {
+  font-size: 42px;
+  color: #cfcfcf;
+}
+
+
+/* ==== PROGRESS CIRCLE ==== */
+
+.progress-container {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+}
+
+
+/* ==== CARD BASE ==== */
+
+.card {
+  display: flex;
+  align-items: center;
+  background: #1b1528;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  gap: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Ícono cuadrado en estilo glassy */
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #2d2042, #1a1128);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Icono de fuego */
+.icon.fire::before {
+  content: "🔥";
+  font-size: 26px;
+}
+
+/* ==== CARD TEXT ==== */
+
+.card .text h4 {
+  margin: 0;
+  color: #a1a1a1;
+  font-size: 14px;
+}
+
+.card .text h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.card .text h2 span {
+  color: #7c7c7c;
+  font-size: 16px;
+}
+
+
+/* ==== SLIDER ABAJO ==== */
+
+.bottom-slider {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.slider-item {
+  width: 35px;
+  height: 10px;
+  border-radius: 6px;
+  background: #2a203a;
+  opacity: 0.4;
+  transition: 0.2s;
+}
+
+.slider-item.active {
+  background: #b26bff;
+  opacity: 1;
+  transform: scale(1.05);
+}
