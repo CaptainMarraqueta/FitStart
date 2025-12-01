@@ -100,4 +100,7 @@ export class LoginPage {
   irARegistro() {
     this.navCtrl.navigateForward('/register');
   }
+  irAforgotpas(){
+    this.navCtrl.navigateForward('/ForgotPas');
+  }
 }

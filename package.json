@@ -30,6 +30,7 @@
     "@capacitor/status-bar": "7.0.1",
     "@capgo/capacitor-native-biometric": "^7.1.13",
     "@capgo/capacitor-pedometer": "^7.2.5",
+    "@emailjs/browser": "^4.4.1",
     "@ionic/angular": "^8.7.11",
     "firebase": "^9.6.10",
     "ionicons": "^7.0.0",
