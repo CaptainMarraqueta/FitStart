@@ -28,7 +28,7 @@ export class LoginPage {
   }
 
   async iniciarSesion() {
-    this.authService.login(this.credenciales).subscribe({
+    this.authService.login(this.credenciales.email,this.credenciales.password).subscribe({
       next: async (res: any) => {
         // Guardamos credenciales biométricas si el usuario lo desea
         if (this.useBiometric && this.biometricAvailable && Capacitor.isNativePlatform()) {
@@ -99,5 +99,8 @@ export class LoginPage {
 
   irARegistro() {
     this.navCtrl.navigateForward('/register');
+  }
+  irAforgotpas(){
+    this.navCtrl.navigateForward('/ForgotPas');
   }
 }

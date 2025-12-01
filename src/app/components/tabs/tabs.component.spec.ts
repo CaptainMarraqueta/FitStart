@@ -2,6 +2,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { TabsComponent } from './tabs.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+TestBed.configureTestingModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+});
 
 describe('TabsComponent', () => {
   let component: TabsComponent;

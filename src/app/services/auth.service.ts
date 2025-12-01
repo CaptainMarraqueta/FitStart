@@ -1,37 +1,92 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Usuario } from '../models/usuario';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private API = 'http://localhost:3000/api/auth';
+
   private readonly TOKEN_KEY = 'token';
   private readonly USER_KEY = 'usuario';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore
+  ) {}
 
-  registrar(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.API}/register`, usuario);
-  }
+registrar(usuario: Usuario): Observable<any> {
+  return from(
+    this.afAuth.createUserWithEmailAndPassword(usuario.email, usuario.password)
+  ).pipe(
+    switchMap(cred => {
+      if (!cred.user) throw new Error('No se pudo crear el usuario');
 
-  // Guarda automáticamente token y usuario devueltos por el backend
-  login(credenciales: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.API}/login`, credenciales).pipe(
-      tap((resp: any) => {
-        if (resp?.token) {
-          this.guardarToken(resp.token);
-        }
-        if (resp?.usuario) {
-          this.guardarUsuario(resp.usuario);
-        }
+      const uid = cred.user.uid;
+
+      const usuarioDoc = {
+        uid,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        edad: usuario.edad,
+        genero: usuario.genero,
+        objetivo: usuario.objetivo,
+        condicion: usuario.condicion,
+        altura: usuario.altura,
+        peso: usuario.peso,
+        fechaCreacion: new Date()
+      };
+
+      return from(
+        this.afs.collection('usuarios').doc(uid).set(usuarioDoc)
+      ).pipe(
+        switchMap(() => from(cred.user!.getIdToken())),
+        map(token => {
+          this.guardarToken(token);
+          this.guardarUsuario(usuarioDoc);
+          return { ok: true, uid };
+        })
+      );
+    })
+  );
+}
+
+
+login(email: string, password: string): Observable<any> {
+  return from(this.afAuth.signInWithEmailAndPassword(email, password))
+    .pipe(
+      switchMap(cred => {
+        if (!cred.user) throw new Error('Usuario no encontrado');
+
+        const uid = cred.user.uid;
+
+        // Traer datos completos del usuario desde Firestore
+        return this.afs.collection('usuarios').doc(uid).valueChanges().pipe(
+          map((usuario: any) => {
+            if (!usuario) throw new Error('Datos de usuario no encontrados');
+
+            // Guardar usuario completo en LocalStorage
+            this.guardarUsuario(usuario);
+
+            // Guardar token de Firebase
+            cred.user!.getIdToken().then(token => this.guardarToken(token));
+
+            return { ok: true, usuario };
+          })
+        );
       })
     );
+}
+
+
+  async getUid(): Promise<string | null> {
+    const user = await this.afAuth.currentUser;
+    return user ? user.uid : null;
   }
+
 
   guardarToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);
@@ -41,52 +96,32 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  // === Persistencia de USUARIO ===
-  guardarUsuario(usuario: Usuario) {
+  guardarUsuario(usuario: any) {
     localStorage.setItem(this.USER_KEY, JSON.stringify(usuario));
   }
 
-  obtenerUsuario(): Usuario | null {
-    const raw = localStorage.getItem(this.USER_KEY);
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw) as Usuario;
-    } catch {
-      return null;
-    }
+ obtenerUsuario(): Usuario | null {
+  const raw = localStorage.getItem(this.USER_KEY);
+  if (!raw) return null;
+  try {
+    const obj = JSON.parse(raw);
+    // Validar campos mínimos
+    if (!obj || !obj.email || !obj.uid) return null;
+    return obj as Usuario;
+  } catch {
+    return null;
   }
-
-  // Decodifica payload del JWT (sin librerías externas)
-  private decodeToken(token: string): any | null {
-    try {
-      const payload = token.split('.')[1];
-      const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
-      return JSON.parse(decoded);
-    } catch {
-      return null;
-    }
-  }
-
-  private tokenExpirado(token: string): boolean {
-    const payload = this.decodeToken(token);
-    if (!payload?.exp) return false; // si no trae exp, asumimos válido
-    const ahora = Date.now() / 1000;
-    return payload.exp < ahora;
-  }
+}
 
   estaLogueado(): boolean {
-    const token = this.obtenerToken();
-    if (!token) return false;
-
-    if (this.tokenExpirado(token)) {
-      this.logout(); // limpia si ya expiró
-      return false;
-    }
-    return true;
+    return !!this.obtenerToken();
   }
 
-  logout() {
+
+  async logout() {
+    await this.afAuth.signOut();
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
   }
+
 }

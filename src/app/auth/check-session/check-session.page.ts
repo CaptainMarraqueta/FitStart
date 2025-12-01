@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-check-session',
   templateUrl: './check-session.page.html',
   styleUrls: ['./check-session.page.scss'],
-  standalone: false
 })
 export class CheckSessionPage implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    private afAuth: AngularFireAuth,
     private navCtrl: NavController
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      if (this.authService.estaLogueado()) {
-        this.navCtrl.navigateRoot('/home'); // si hay sesión
+    // Espera a la autenticación de Firebase
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.navCtrl.navigateRoot('/home');
       } else {
-        this.navCtrl.navigateRoot('/login'); // si no hay sesión
+        this.navCtrl.navigateRoot('/login');
       }
-    }, 1000); // pequeño delay tipo splash
+    });
   }
 }

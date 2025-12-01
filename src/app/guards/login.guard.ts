@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -8,12 +8,11 @@ import { AuthService } from '../services/auth.service';
 export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
+  canActivate(): boolean | UrlTree {
     if (this.authService.estaLogueado()) {
-      // Si ya está logueado, lo redirigimos al perfil (o al home)
-      this.router.navigate(['/profile']);
-      return false;
+      // Redirige usando UrlTree
+      return this.router.parseUrl('/profile');
     }
-    return true; // Si no está logueado, puede entrar a login/register
+    return true;
   }
 }

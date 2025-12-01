@@ -1,17 +1,111 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProfilePage } from './profile.page';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NavController, AlertController } from '@ionic/angular';
 
-describe('ProfilePage', () => {
-  let component: ProfilePage;
-  let fixture: ComponentFixture<ProfilePage>;
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
+  standalone: false,
+})
+export class ProfilePage implements OnInit {
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProfilePage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  usuario: any = {
+    nombre: '',
+    edad: null,
+    objetivo: []
+  };
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  objetivos = [
+    { label: 'Bajar de peso', value: 'bajar_peso' },
+    { label: 'Ganar masa muscular', value: 'ganar_masa' },
+    { label: 'Mantenerme saludable', value: 'salud' },
+    { label: 'Mejorar resistencia', value: 'resistencia' }
+  ];
+
+  editando = false;
+
+  constructor(
+    private afs: AngularFirestore,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private alertCtrl: AlertController
+  ) {}
+
+  // ✔️ Agregado porque tus TESTS lo exigen
+  ngOnInit() {
+    const perfil = this.authService.obtenerUsuario();
+    if (perfil) {
+      this.usuario = { ...perfil };
+    }
+  }
+
+  async ionViewWillEnter() {
+    const perfil = this.authService.obtenerUsuario();
+    if (perfil) this.usuario = { ...perfil };
+  }
+
+  async habilitarEdicion() {
+    const alert = await this.alertCtrl.create({
+      header: 'Editar',
+      message: '¿Deseas modificar tu perfil?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Sí', handler: () => this.editando = true }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async guardarCambios() {
+    const uid = await this.authService.getUid();
+    if (!uid) return;
+
+    await this.afs.collection('usuarios').doc(uid).update(this.usuario);
+
+    const alert = await this.alertCtrl.create({
+      header: 'Éxito',
+      message: 'Perfil actualizado correctamente',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    this.editando = false;
+
+    // Actualizar localStorage
+    this.authService.guardarUsuario(this.usuario);
+  }
+
+  async cerrarSesion() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro de que deseas cerrar sesión?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Sí',
+          handler: async () => {
+            await this.authService.logout();
+            this.navCtrl.navigateRoot('/login');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  toggleObjetivo(value: string) {
+    if (!this.usuario.objetivo) this.usuario.objetivo = [];
+
+    if (this.usuario.objetivo.includes(value)) {
+      this.usuario.objetivo = this.usuario.objetivo.filter(
+        (o: string) => o !== value
+      );
+    } else {
+      this.usuario.objetivo.push(value);
+    }
+  }
+}
